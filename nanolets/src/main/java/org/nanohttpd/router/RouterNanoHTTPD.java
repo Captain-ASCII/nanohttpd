@@ -321,7 +321,7 @@ public class RouterNanoHTTPD extends NanoHTTPD {
 
         private static final Pattern PARAM_PATTERN = Pattern.compile("(?<=(^|/)):[a-zA-Z0-9_-]+(?=(/|$))");
 
-        private static final String PARAM_MATCHER = "([A-Za-z0-9\\-\\._~:/?#\\[\\]@!\\$&'\\(\\)\\*\\+,;=\\s]+)";
+        private static final String PARAM_MATCHER = "([A-Za-z0-9\\-\\._#]+)";
 
         private static final Map<String, String> EMPTY = Collections.unmodifiableMap(new HashMap<String, String>());
 
@@ -370,7 +370,7 @@ public class RouterNanoHTTPD extends NanoHTTPD {
                 start = matcher.start() + PARAM_MATCHER.length();
                 matcher = PARAM_PATTERN.matcher(patternUri);
             }
-            return Pattern.compile(patternUri);
+            return Pattern.compile("^" + patternUri + "$");
         }
 
         public Response process(Map<String, String> urlParams, IHTTPSession session) {
